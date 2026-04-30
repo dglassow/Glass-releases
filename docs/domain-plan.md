@@ -20,13 +20,15 @@ The preferred DNS provider is AWS Route 53. Registration may happen through Rout
 
 The local `.env` credentials authenticate to the intended AWS account.
 
-The current IAM user can call STS, but it cannot check Route 53 Domains availability:
+The current IAM user can call STS, but it cannot complete Route 53 domain discovery or availability checks:
 
 ```text
 route53domains:CheckDomainAvailability denied
+route53domains:ListDomains denied
+route53:ListHostedZones denied
 ```
 
-Before registering a domain through AWS, grant the deployment identity the needed Route 53 Domains permissions or complete the registration manually in the AWS console.
+Before registering a domain through AWS, grant the deployment identity the needed Route 53 and Route 53 Domains permissions or complete the registration manually in the AWS console.
 
 ## Instructions
 
@@ -66,10 +68,26 @@ AWS Route 53 Domains availability checks could not be run because of the IAM per
 
 ## Recommended Candidates
 
+Current preferred candidate: `glassapphub.com`.
+
 1. `glassapphub.com` - broad enough for docs, releases, support links, and future public services.
 2. `glassreleases.com` - strongest fit for this repository and public release artifacts.
 3. `glassreleasehub.com` - good fallback if a more descriptive release/support domain is preferred.
 4. `glassappdocs.com` - useful if the domain should focus mainly on documentation.
+
+`glassapphub.com` is the best fit right now because it is not limited to one content type. It can support `docs.glassapphub.com`, `releases.glassapphub.com`, `support.glassapphub.com`, and future public-facing services without renaming the domain later.
+
+## AWS Permission Follow-Up
+
+To complete the selection inside AWS Route 53, the deployment identity needs read access for discovery and availability checks:
+
+```text
+route53domains:CheckDomainAvailability
+route53domains:ListDomains
+route53:ListHostedZones
+```
+
+Registration and DNS setup will need additional approval and permissions, including Route 53 Domains registration permissions and Route 53 hosted-zone creation or record-management permissions.
 
 ## Follow-Ups
 
