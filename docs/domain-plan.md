@@ -107,14 +107,15 @@ Route 53 lists `.glass` as a supported TLD. These names use Glass as the extensi
 
 ## Recommended Candidates
 
-Current preferred candidate: `glass.cloud`.
+Current preferred candidate: `docs.glass`.
 
-1. `glass.cloud` - exact Glass name, readable, broad enough for docs/releases/support, and aligned with AWS-hosted public services.
-2. `glass.co` - exact Glass name, short, and company-oriented; verify Route 53 price and registration eligibility before purchase.
-3. `go.glass` - short, memorable fallback using the `.glass` TLD if exact `glass.<tld>` options are unavailable or premium-priced.
-4. `glass.help` - exact Glass name and support-friendly, but less flexible for release artifacts.
+1. `docs.glass` - short, direct, and best aligned with the immediate public documentation goal.
+2. `go.glass` - broader short fallback using the `.glass` TLD if documentation is not the only root use case.
+3. `glass.cloud` - exact Glass name, readable, broad enough for docs/releases/support, and aligned with AWS-hosted public services.
+4. `glass.co` - exact Glass name, short, and company-oriented; verify Route 53 price and registration eligibility before purchase.
+5. `glass.help` - exact Glass name and support-friendly, but less flexible for release artifacts.
 
-`glass.cloud` is the best fit right now because it keeps the public name as close to `glass` as possible while staying readable and flexible. It can support `docs.glass.cloud`, `releases.glass.cloud`, `support.glass.cloud`, and future public-facing services without forcing a long root domain.
+`docs.glass` is the best fit right now because it is concise, human-readable, and directly communicates the first public service this repository is expected to publish. If releases and support need to share the same root later, use subpaths such as `docs.glass/releases` and `docs.glass/support`, or choose the broader `go.glass` before registration.
 
 ## AWS Permission Follow-Up
 
@@ -122,6 +123,8 @@ To complete the selection inside AWS Route 53, the deployment identity needs rea
 
 ```text
 route53domains:CheckDomainAvailability
+route53domains:ListPrices
+route53domains:RegisterDomain
 route53domains:ListDomains
 route53:ListHostedZones
 ```
@@ -129,6 +132,12 @@ route53:ListHostedZones
 Registration and DNS setup will need additional approval and permissions, including Route 53 Domains registration permissions and Route 53 hosted-zone creation or record-management permissions.
 
 ## Registration Attempt Notes
+
+### `docs.glass`
+
+Checked on 2026-05-03. Public RDAP returned `404 Object not found`, and public DNS returned no NS, A, or SOA records. This suggests `docs.glass` is not currently registered, but it is not a purchase guarantee.
+
+Route 53 availability and pricing could not be checked from the AWS account because `route53domains:CheckDomainAvailability` and `route53domains:ListPrices` are denied. Registration could not be submitted because the AWS identity still needs Route 53 Domains registration permissions and registrant/admin/tech contact details.
 
 ### `glass.io`
 
