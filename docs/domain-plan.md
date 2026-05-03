@@ -135,9 +135,22 @@ Registration and DNS setup will need additional approval and permissions, includ
 
 ### `docs.glass`
 
-Checked on 2026-05-03. Public RDAP returned `404 Object not found`, and public DNS returned no NS, A, or SOA records. This suggests `docs.glass` is not currently registered, but it is not a purchase guarantee.
+Checked on 2026-05-03 before registration. Public RDAP returned `404 Object not found`, and public DNS returned no NS, A, or SOA records. This suggested `docs.glass` was not registered at that time, but it was not a purchase guarantee.
 
 Route 53 availability and pricing could not be checked from the AWS account because `route53domains:CheckDomainAvailability` and `route53domains:ListPrices` are denied. Registration could not be submitted because the AWS identity still needs Route 53 Domains registration permissions and registrant/admin/tech contact details.
+
+Checked again on 2026-05-03 after registration. Public RDAP shows:
+
+- Domain: `docs.glass`.
+- Registrar: Amazon Registrar, Inc.
+- Registration date: 2026-05-03T18:02:41.806Z.
+- Expiration date: 2027-05-03T18:02:41.806Z.
+- Status: `add period`, `inactive`.
+- Nameservers: none published in RDAP.
+
+Public DNS still returns no NS, A, or SOA records for `docs.glass`, and the `.glass` parent zone does not currently delegate `docs.glass`. This means the domain appears registered but is not publicly delegated to a hosted zone yet.
+
+The current AWS identity still cannot verify the hosted zone inside the AWS account because `route53:ListHostedZonesByName` is denied, and it cannot inspect the domain registration because `route53domains:GetDomainDetail` is denied.
 
 ### `glass.io`
 
