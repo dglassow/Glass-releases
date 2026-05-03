@@ -1,6 +1,6 @@
 # Domain Plan
 
-Date checked: 2026-04-30
+Date checked: 2026-05-03
 
 ## Context
 
@@ -55,7 +55,7 @@ The candidates below still need a final Route 53 check before purchase.
 | Domain | RDAP status | Route 53 registration note |
 | --- | --- | --- |
 | glass.cloud | not registered in RDAP | TLD is listed by Route 53. |
-| glass.io | not registered in RDAP | TLD is listed by Route 53. |
+| glass.io | registered | TLD is listed by Route 53, but the domain is already registered. |
 | glass.co | not registered in RDAP | TLD is listed by Route 53. |
 | glass.help | not registered in RDAP | TLD is listed by Route 53. |
 | glass.link | not registered in RDAP | TLD is listed by Route 53. |
@@ -110,10 +110,9 @@ Route 53 lists `.glass` as a supported TLD. These names use Glass as the extensi
 Current preferred candidate: `glass.cloud`.
 
 1. `glass.cloud` - exact Glass name, readable, broad enough for docs/releases/support, and aligned with AWS-hosted public services.
-2. `glass.io` - exact Glass name and common for applications or developer-facing tools; verify Route 53 price and registration eligibility before purchase.
-3. `glass.co` - exact Glass name, short, and company-oriented; verify Route 53 price and registration eligibility before purchase.
-4. `go.glass` - short, memorable fallback using the `.glass` TLD if exact `glass.<tld>` options are unavailable or premium-priced.
-5. `glass.help` - exact Glass name and support-friendly, but less flexible for release artifacts.
+2. `glass.co` - exact Glass name, short, and company-oriented; verify Route 53 price and registration eligibility before purchase.
+3. `go.glass` - short, memorable fallback using the `.glass` TLD if exact `glass.<tld>` options are unavailable or premium-priced.
+4. `glass.help` - exact Glass name and support-friendly, but less flexible for release artifacts.
 
 `glass.cloud` is the best fit right now because it keeps the public name as close to `glass` as possible while staying readable and flexible. It can support `docs.glass.cloud`, `releases.glass.cloud`, `support.glass.cloud`, and future public-facing services without forcing a long root domain.
 
@@ -128,6 +127,18 @@ route53:ListHostedZones
 ```
 
 Registration and DNS setup will need additional approval and permissions, including Route 53 Domains registration permissions and Route 53 hosted-zone creation or record-management permissions.
+
+## Registration Attempt Notes
+
+### `glass.io`
+
+Checked on 2026-05-03. `glass.io` cannot be newly registered because it is already registered. Public DNS returns active name servers and an A record, and WHOIS reports:
+
+- Registrar: Gandi SAS.
+- Creation date: 2011-10-19.
+- Registry expiry date: 2026-10-19.
+
+Route 53 availability and pricing could not be checked from the AWS account because `route53domains:CheckDomainAvailability` and `route53domains:ListPrices` are denied.
 
 ## Follow-Ups
 
